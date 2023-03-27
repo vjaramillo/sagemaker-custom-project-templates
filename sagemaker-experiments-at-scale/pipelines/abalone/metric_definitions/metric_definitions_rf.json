@@ -1,0 +1,10 @@
+[
+  {
+   "Name": "validation:rmse",
+   "Regex": "validation-rmse:(\\S+)"
+  },
+  {
+   "Name": "train:rmse",
+   "Regex": "train-rmse:(\\S+)"
+  }
+]

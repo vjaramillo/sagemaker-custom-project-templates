@@ -1,0 +1,4 @@
+{
+    "n-estimators": 100,
+    "min-samples-leaf": 3
+}
