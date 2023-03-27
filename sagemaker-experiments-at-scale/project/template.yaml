@@ -61,8 +61,8 @@ Resources:
       RepositoryDescription: !Sub SageMaker Model building workflow infrastructure as code for the Project ${SageMakerProjectName}
       Code:
         S3:
-          Bucket: sagemaker-servicecatalog-seedcode-eu-west-1
-          Key: toolchain/model-building-workflow-v1.0.zip
+          Bucket: AWSDEFAULT___CODE_STAGING_BUCKET___
+          Key: AWSDEFAULT___PROJECT_NAME___/seedcode/sagemaker-experiments-at-scale-seedcode.zip
         BranchName: main
 
   SageMakerModelPipelineBuildProject:
