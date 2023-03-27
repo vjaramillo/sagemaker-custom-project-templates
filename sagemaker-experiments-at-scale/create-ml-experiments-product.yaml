@@ -131,7 +131,7 @@ Resources:
   BootstrapS3Bucket:
     Type: AWS::S3::Bucket
     Properties: 
-      BucketName: !Join ['-',['sm-project-batchinference-example', !Select [4, !Split ['-', !Select [2, !Split ['/', !Ref 'AWS::StackId']]]]]]
+      BucketName: !Join ['-',['sm-project-ml-experiments-example', !Select [4, !Split ['-', !Select [2, !Split ['/', !Ref 'AWS::StackId']]]]]]
       PublicAccessBlockConfiguration:
         BlockPublicAcls: true
         BlockPublicPolicy: true
@@ -159,8 +159,8 @@ Resources:
   BootstrapLambdaExecutionRole:
     Type: AWS::IAM::Role
     Properties: 
-      RoleName: !Join ['-', ['SMCustomProject-BatchInference-Bootstrap-Role', !Select [4, !Split ['-', !Select [2, !Split ['/', !Ref 'AWS::StackId']]]]]]
-      Description: Role used for launching the lambda function to bootstrap creation of the Batch Inference SageMaker Custom Project Template example
+      RoleName: !Join ['-', ['SMCustomProject-MLExperiments-Bootstrap-Role', !Select [4, !Split ['-', !Select [2, !Split ['/', !Ref 'AWS::StackId']]]]]]
+      Description: Role used for launching the lambda function to bootstrap creation of the ML Experiments at Scale SageMaker Custom Project Template example
       AssumeRolePolicyDocument:
         Version: '2012-10-17'
         Statement:
@@ -216,7 +216,7 @@ Resources:
     DependsOn: 
       - ServiceCatalogProductAssociation
     Properties: 
-      Description: Role for launching the batch-inference product
+      Description: Role for launching the ml-experiments at scale product
       PortfolioId: !Ref PortfolioIDParameter
       ProductId: !Ref ServiceCatalogProduct
       RoleArn: !Join [ ':', [ 'arn', !Ref 'AWS::Partition', 'iam:', !Ref 'AWS::AccountId', 'role/service-role/AmazonSageMakerServiceCatalogProductsLaunchRole'] ]
@@ -224,7 +224,7 @@ Resources:
   CustomBackedLambda:
     Type: AWS::Lambda::Function
     Properties:
-      FunctionName: !Join ['-', ['aws-samples-batchinference-lambda-bootstrapper', !Select [4, !Split ['-', !Select [2, !Split ['/', !Ref 'AWS::StackId']]]]]]
+      FunctionName: !Join ['-', ['aws-samples-ml-experiments-lambda-bootstrapper', !Select [4, !Split ['-', !Select [2, !Split ['/', !Ref 'AWS::StackId']]]]]]
       Runtime: python3.9
       Role: !GetAtt BootstrapLambdaExecutionRole.Arn
       Handler: index.lambda_handler
@@ -376,7 +376,7 @@ Resources:
                 responseData = {}
                 responseData['message'] = 'exception caught'
                 cfnresponse.send(event, context, cfnresponse.FAILED, responseData)
-      Description: Cloudformation Custom Lambda to bootstrap the Batch Inference SageMaker Project example
+      Description: Cloudformation Custom Lambda to bootstrap the ML Experiments at Scale SageMaker Project example
 
   InvokeCustomLambda:
     Type: Custom::InvokeCustomLambda
@@ -390,7 +390,7 @@ Resources:
         AWSDEFAULT___CODE_STAGING_BUCKET___ : !Ref BootstrapS3Bucket
         AWSDEFAULT___PROJECT_NAME___ : !Ref SageMakerProjectsProjectNameParameter
       Archives:
-        - ['batch-inference-seedcode.zip', '/seedcode']
+        - ['sagemaker-experiments-at-scale-seedcode.zip', '/seedcode']
 
 
 Outputs:
