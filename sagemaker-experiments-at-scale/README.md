@@ -2,28 +2,28 @@
 
 ## Purpose
 
-The purpose of this template is to deploy the base infrastructure to build models via sagemaker pipelines. However, unlike the default infrastructure for building models, there is additional code that will allow the user to run experiments at scale, by just providing the experiments configuration.
+The purpose of this template is to deploy the base infrastructure to build models via sagemaker pipelines. In addition to this infrastructure, there is additional code setup that will allow the user to run experiments at scale by just providing the experiments configuration.
 
 ## Architecture
 
-![ml-experiments-project.png](images/batch-project.png)
+![exp-at-scale.png](images/exp-at-scale.png)
 
 ## Instructions
 
 Part 1: Create initial Service Catalog Product
 
-1. To create the Service Catalog product for this project, download the `create-ml-experiment-product.yaml` and upload it into your CloudFormation console: https://console.aws.amazon.com/cloudformation
+1. To create the Service Catalog product for this project, download the `create-ml-experiments-product.yaml` and upload it into your CloudFormation console: https://console.aws.amazon.com/cloudformation
 
 
 2. Update the Parameters section:
 
     - Supply a unique name for the stack
 
-        ![](images/ml-experiments-params-01.png)
+        ![](images/stack-name-01.png)
 
     - Enter your Service Catalog portfolio id, which can be found in the __Outputs__ tab of your deployed portfolio stack or in the Service Catalog portfolio list: https://console.aws.amazon.com/servicecatalog/home?#/portfolios
 
-        ![](images/ml-experiments-params-02.png)
+        ![](images/portfolio-ID-02.png)
 
     - Update the Product Information. The product name and description are visible inside of SageMaker Studio. Other fields are visible to users that consume this directly through Service Catalog. 
 
@@ -31,7 +31,7 @@ Part 1: Create initial Service Catalog Product
 
     - Updating the source code repository information is only necessary if you forked this repo and modified it.
 
-        ![](images/ml-experiments-params-05.png)
+        ![](images/source-code-05.png)
 
 3. Choose __Next__, __Next__ again, check the box acknowledging that the template will create IAM resources, and then choose __Create Stack__.
 
@@ -50,7 +50,7 @@ Part 2: Deploy the Project inside of SageMaker Studio
 
 5. Choose the template and click Select the correct project template.
 
-    ![](../images/sm-projects-listing.png)
+    ![](images/select-project.png)
 
 6. Fill out the required fields for this project.
 
@@ -58,10 +58,10 @@ Part 2: Deploy the Project inside of SageMaker Studio
 
     - __Description:__ Project description for this deployment.
 
-    - __SourceModelPackageGroupName:__ The name of the SageMaker Model Registry Model Group that will trigger redeployments via this pipeline. This group can be a pre-existing one, or one that you create later. The name of the group must match the entry to trigger deployment.
+    - __CodeTypeComputeBuild:__ The type of instance used for the CodeBuild project that runs the code that launches the pipelines. By default is the smallest type of instance, but if needed it can be changed (see more options [here](https://docs.aws.amazon.com/codebuild/latest/userguide/build-env-ref-compute-types.html)).
 
 7. Choose __Create Project__.
 
-    ![](images/ml-experiments-create-project.png)
+    ![](images/create-project.png)
 
 8. After a few minutes, your example project should be deployed and ready to use.
